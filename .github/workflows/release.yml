@@ -13,13 +13,9 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        goos: [linux, windows]
+        goos: [linux]
         goarch: [amd64]
-        include:
-          - goos: linux
-            goarch: s390x
-          - goos: linux
-            goarch: arm64
+        
 
     name: Build artifacts
     runs-on: ubuntu-latest
@@ -89,7 +85,7 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+    if: (github.event_name == 'push' && contains(github.ref, 'refs/tags/'))||github.event_name == 'workflow_dispatch'
     needs: build
     name: Release
     steps:
