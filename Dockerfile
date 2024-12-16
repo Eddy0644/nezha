@@ -11,7 +11,12 @@ COPY ./script/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 WORKDIR /dashboard
-COPY dist/dashboard-${TARGETOS}-${TARGETARCH} ./app
+#COPY dist/dashboard-${TARGETOS}-${TARGETARCH} ./app
+# Download Nezha dashboard directly from GitHub releases
+RUN wget https://github.com/nezhahq/nezha/releases/download/v1.2.2/dashboard-linux-amd64.zip \
+    && unzip dashboard-linux-amd64.zip \
+    && mv dashboard-linux-amd64 ./app \
+    && rm dashboard-linux-amd64.zip
 
 ARG TZ=Asia/Shanghai
 ENV TZ=$TZ
