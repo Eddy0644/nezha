@@ -16,7 +16,9 @@ WORKDIR /dashboard
 RUN wget https://github.com/nezhahq/nezha/releases/download/v1.2.2/dashboard-linux-amd64.zip \
     && unzip dashboard-linux-amd64.zip \
     && mv dashboard-linux-amd64 ./app \
-    && rm dashboard-linux-amd64.zip
+    && rm dashboard-linux-amd64.zip \
+    && chmod +x ./app
+    
 
 ARG TZ=Asia/Shanghai
 ENV TZ=$TZ
